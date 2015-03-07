@@ -1,0 +1,12 @@
+- name: install mysql
+  apt: name=mysql-server
+
+- name: update /etc/mysql/conf.d/bind.cnf
+  copy: src=etc/mysql/conf.d/bind.cnf dest=/etc/mysql/conf.d/bind.cnf
+
+- name: update mysql service
+  service: name=mysql state=restarted enabled=yes
+
+# memo: after install
+# mysql -u root
+# GRANT ALL PRIVILEGES ON *.* TO root@"%" IDENTIFIED BY "password";

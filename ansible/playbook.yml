@@ -1,0 +1,7 @@
+- hosts: all
+  roles: [jdk, nginx]
+  vars:
+    jdk_version: 8
+  tasks:
+    - name: update all packages
+      apt: upgrade=dist update_cache=yes cache_valid_time=3600

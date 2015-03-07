@@ -1,0 +1,10 @@
+/var/log/tomcat7/*log /var/log/tomcat7/catalina.out {
+    create 640 tomcat7 adm
+    size 1k
+    olddir /opt/log/tomcat7
+    dateext
+    dateformat -%Y-%m-%d-%s
+    missingok
+    notifempty
+    copytruncate
+}

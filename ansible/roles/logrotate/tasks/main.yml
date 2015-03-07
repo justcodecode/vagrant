@@ -1,0 +1,13 @@
+- name: update /etc/logrotate.conf
+  copy: src=etc/logrotate.conf dest=/etc/logrotate.conf owner=root group=root mode=0644
+
+- name: remove /etc/cron.daily/logrotate
+  file: path=/etc/cron.daily/logrotate state=absent
+
+- name: update /etc/cron.hourly/10-logrotate
+  copy: src=etc/cron.hourly/10-logrotate dest=/etc/cron.hourly/10-logrotate owner=root group=root mode=0755
+
+- include: upload-to-s3.yml
+  when: logrotate_s3_bucket != ""
+
+

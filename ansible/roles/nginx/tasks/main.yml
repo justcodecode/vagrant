@@ -1,0 +1,25 @@
+- name: install nginx
+  apt: name=nginx
+
+- name: update /etc/nginx/*
+  copy: src=etc/nginx/ dest=/etc/nginx owner=root group=root mode=644
+  notify: restart-nginx
+
+- name: update /etc/nginx/conf.d/tomcat.conf
+  template: src=etc/nginx/conf.d/tomcat.conf.j2 dest=/etc/nginx/conf.d/tomcat.conf owner=root group=root mode=0644
+  notify: restart-nginx
+
+- name: create /var/www
+  file: path=/var/www owner=www-data group=adm mode=775 state=directory
+
+- name: add ubuntu to adm group for deployment
+  user: name=ubuntu groups=adm append=yes
+
+- name: create /opt/log/nginx
+  file: path=/opt/log/nginx owner=www-data group=adm mode=755 state=directory recurse=yes
+
+- name: update /etc/logrotate.d/nginx
+  copy: src=etc/logrotate.d/nginx dest=/etc/logrotate.d/nginx
+
+- name: enable nginx service
+  service: name=nginx enabled=yes

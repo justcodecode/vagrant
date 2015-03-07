@@ -1,0 +1,12 @@
+- name: update all packages
+  apt: upgrade=dist update_cache=yes cache_valid_time=3600
+
+- name: create /opt/env
+  file: path=/opt/env owner=root group=root recurse=yes state=directory
+
+- name: update /opt/env/mount-ephemeral.sh
+  copy: src=opt/env/mount-ephemeral.sh dest=/opt/env/mount-ephemeral.sh owner=root group=root mode=755
+  notify: mount-ephemeral
+
+- name: update /etc/init/mount-ephemeral.conf
+  copy: src=etc/init/mount-ephemeral.conf dest=/etc/init/mount-ephemeral.conf owner=root group=root mode=644
