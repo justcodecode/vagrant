@@ -41,20 +41,22 @@ Vagrant.configure(2) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "~/depot", "/opt/depot", type: "nfs"
+  # config.vm.synced_folder ".", "/vagrant", type: "nfs"
 
   config.vm.provider :virtualbox do |vb|
-    vb.memory = 4096
-
-    cpu_count = 2
-
     if RUBY_PLATFORM =~ /linux/
-      cpu_count = `nproc`.to_i
+      cpus = `nproc`.to_i
+      mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
     elsif RUBY_PLATFORM =~ /darwin/
-      cpu_count = `sysctl -n hw.ncpu`.to_i
+      cpus = `sysctl -n hw.ncpu`.to_i
+      mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+    else
+      cpus = 2
+      mem = 4096
     end
 
-    # Assign additional cores to the guest OS.
-    vb.customize ["modifyvm", :id, "--cpus", cpu_count]
+    vb.customize ["modifyvm", :id, "--cpus", cpus]
+    vb.customize ["modifyvm", :id, "--memory", mem]
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
     # This setting makes it so that network access from inside the vagrant guest is able to resolve DNS using the hosts VPN connection.
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
