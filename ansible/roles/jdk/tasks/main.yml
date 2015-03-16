@@ -7,10 +7,10 @@
 - name: accept oracle license
   debconf: name='oracle-java{{jdk_version}}-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
 
-- name: install jdk{{jdk_version}}
+- name: install jdk
   apt: name=oracle-java{{jdk_version}}-installer
 
-- name: set jdk{{jdk_version}} as default
+- name: set jdk as default
   apt: name=oracle-java{{jdk_version}}-set-default
 
 - name: update JCE jar

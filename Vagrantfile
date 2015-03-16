@@ -41,9 +41,9 @@ Vagrant.configure(2) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "~/depot", "/opt/depot", type: "nfs"
-  # config.vm.synced_folder ".", "/vagrant", type: "nfs"
+  config.vm.synced_folder ".", "/vagrant", type: "nfs"
 
-  config.vm.provider :virtualbox do |vb|
+  config.vm.provider :virtualbox do |box|
     if RUBY_PLATFORM =~ /linux/
       cpus = `nproc`.to_i
       mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
@@ -55,19 +55,17 @@ Vagrant.configure(2) do |config|
       mem = 4096
     end
 
-    vb.customize ["modifyvm", :id, "--cpus", cpus]
-    vb.customize ["modifyvm", :id, "--memory", mem]
-    vb.customize ["modifyvm", :id, "--ioapic", "on"]
+    box.customize ["modifyvm", :id, "--cpus", cpus]
+    box.customize ["modifyvm", :id, "--memory", mem]
+    box.customize ["modifyvm", :id, "--ioapic", "on"]
     # This setting makes it so that network access from inside the vagrant guest is able to resolve DNS using the hosts VPN connection.
-    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    box.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
-  #config.vm.provision :shell do |shell|
-  #  shell.inline = "apt-get update -q -y"
-  #end
+$script = <<SCRIPT
+dpkg -s ansible || (sudo apt-add-repository -y ppa:ansible/ansible && sudo apt-get -y -q update && sudo apt-get -y install ansible)
+ansible-playbook --sudo /vagrant/ansible/playbook.yml
+SCRIPT
 
-  config.vm.provision "ansible" do |ansible|
-    ansible.sudo = true
-    ansible.playbook = "ansible/playbook.yml"
-  end
+  config.vm.provision "shell", inline: $script
 end
