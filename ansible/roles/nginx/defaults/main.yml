@@ -1,1 +1,2 @@
 nginx_https_only: false
+nginx_default_conf: ""
