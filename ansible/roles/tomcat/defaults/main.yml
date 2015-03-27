@@ -1,2 +1,2 @@
 tomcat_https_only: false
-tomcat_java_opts: -XX:+UseConcMarkSweepGC -Xss256k -XX:PermSize=128m -XX:MaxPermSize=128m -XX:+HeapDumpOnOutOfMemoryError -Djava.awt.headless=true
+tomcat_java_opts: -XX:+UseG1GC -Xss256k -Djava.awt.headless=true
