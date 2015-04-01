@@ -7,6 +7,9 @@
 - name: update /etc/cron.hourly/10-logrotate
   copy: src=etc/cron.hourly/10-logrotate dest=/etc/cron.hourly/10-logrotate owner=root group=root mode=0755
 
+- name: create /opt/log
+  file: path=/opt/log owner=ubuntu group=ubuntu mode=0777 state=directory
+
 - include: upload-to-s3.yml
   when: logrotate_s3_bucket != ""
 

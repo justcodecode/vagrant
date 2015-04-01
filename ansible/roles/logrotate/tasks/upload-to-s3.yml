@@ -4,9 +4,6 @@
 - name: install awscli
   pip: name=awscli
 
-- name: create /opt/log
-  file: path=/opt/log owner=ubuntu group=ubuntu mode=0755 state=directory recurse=yes
-
 - name: update /etc/cron.hourly/20-logrotate-upload-to-s3
   template: src=etc/cron.hourly/20-logrotate-upload-to-s3.j2 dest=/etc/cron.hourly/20-logrotate-upload-to-s3 owner=root group=root mode=0755
 

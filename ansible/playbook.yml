@@ -1,5 +1,5 @@
 - hosts: localhost
-  roles: [sys, jdk, nginx, mysql]
+  roles: [sys, jdk, nginx, mysql, logrotate]
   vars:
     nginx_default_conf: >
       "server {
@@ -35,3 +35,7 @@
        }"
 
   tasks:
+    - name: disable puppet
+      service: name=puppet enabled=no state=stopped
+    - name: disable chef
+      service: name=chef-client enabled=no state=stopped
