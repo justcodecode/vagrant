@@ -8,7 +8,6 @@
            server_name  localhost;
            root         /var/www;
 
-           ssl                  on;
            ssl_certificate      cert.pem;
            ssl_certificate_key  private-key.pem;
 
