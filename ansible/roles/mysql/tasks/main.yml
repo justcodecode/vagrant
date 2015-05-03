@@ -1,5 +1,5 @@
 - name: install mysql
-  apt: name=mysql-server
+  apt: name=mysql-server-5.6
 
 - name: update /etc/mysql/conf.d/bind.cnf
   copy: src=etc/mysql/conf.d/bind.cnf dest=/etc/mysql/conf.d/bind.cnf
