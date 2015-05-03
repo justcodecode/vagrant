@@ -9,8 +9,3 @@
 
 - name: create /opt/log
   file: path=/opt/log owner=ubuntu group=ubuntu mode=0777 state=directory
-
-- include: upload-to-s3.yml
-  when: logrotate_s3_bucket != ""
-
-

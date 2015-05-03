@@ -9,9 +9,6 @@
     - rm -rf /var/log/tomcat7/*
     - rm -rf /var/lib/tomcat7/webapps/ROOT
 
-- name: remove /var/cache/tomcat7/Catalina
-  command: "rm -rf /var/cache/tomcat7/Catalina removes=/var/cache/tomcat7/Catalina"
-
 - name: update /etc/tomcat7/*
   copy: src=etc/tomcat7/ dest=/etc/tomcat7 owner=root group=tomcat7 mode=644
   notify: restart-tomcat

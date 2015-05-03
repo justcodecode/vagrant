@@ -1,2 +1,0 @@
-logrotate_s3_bucket: ""
-logrotate_s3_prefix: log

@@ -1,6 +1,37 @@
 - hosts: localhost
-  roles: [sys, jdk, nginx, tomcat, logrotate]
+  roles: [sys, nginx, tomcat]
   vars:
+    nginx_default_conf: >
+      "server {
+           listen       80;
+           listen       443 ssl;
+           server_name  localhost;
+           root         /var/www;
+
+           ssl_certificate      cert.pem;
+           ssl_certificate_key  private-key.pem;
+
+           ssl_session_timeout  5m;
+
+           ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+           ssl_ciphers  HIGH:!aNULL:!MD5;
+           ssl_prefer_server_ciphers   on;
+
+           location / {
+               proxy_pass              http://10.0.2.2:8080/;
+               proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+               proxy_set_header        X-Forwarded-Proto $scheme;
+               proxy_set_header        Host $http_host;
+               proxy_http_version      1.1;
+           }
+
+           location /nginx_status {
+              stub_status on;
+              access_log   off;
+              allow 127.0.0.1;
+              deny all;
+           }
+       }"
 
   tasks:
     - name: disable puppet
