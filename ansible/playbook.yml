@@ -1,5 +1,5 @@
 - hosts: localhost
-  roles: [sys, nginx, tomcat]
+  roles: [sys, nginx, tomcat, mysql, redis]
   vars:
     nginx_default_conf: >
       "server {
