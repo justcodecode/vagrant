@@ -5,7 +5,7 @@
   apt: name=nginx
 
 - name: update /etc/nginx/*
-  copy: src=etc/nginx/ dest=/etc/nginx owner=root group=root mode=644
+  copy: src=etc/nginx/ dest=/etc/nginx owner=root group=root mode=0644
   notify: restart-nginx
 
 - name: update /etc/nginx/sites-available/default by nginx_default_conf
