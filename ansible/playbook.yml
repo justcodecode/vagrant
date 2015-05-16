@@ -1,5 +1,5 @@
 - hosts: localhost
-  roles: [sys, elasticsearch]
+  roles: [sys, mongodb]
   vars:
 
   tasks:
