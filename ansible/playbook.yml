@@ -1,6 +1,10 @@
 - hosts: localhost
-  roles: [sys, mongodb]
+  roles: [sys, supervisor]
   vars:
+    supervisor_programs:
+      demo:
+        command: '/opt/app/demo-service-3.0.0/bin/demo-service'
+        java_opts: '-XX:+UseG1GC'
 
   tasks:
     - name: disable puppet

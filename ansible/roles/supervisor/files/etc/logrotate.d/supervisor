@@ -1,6 +1,6 @@
-/var/log/tomcat7/*log /var/log/tomcat7/catalina.out {
+/var/log/supervisor/*log {
     size 1k
-    olddir /opt/log/tomcat7
+    olddir /opt/log/supervisor
     dateext
     dateformat -%Y-%m-%d-%s
     missingok
