@@ -1,10 +1,10 @@
 - hosts: localhost
-  roles: [sys, supervisor]
+  roles: [sys, supervisor, jdk, redis]
   vars:
     supervisor_programs:
       demo:
         command: '/opt/app/demo-service-3.0.0/bin/demo-service'
-        java_opts: '-XX:+UseG1GC'
+        env: 'JAVA_OPTS="-XX:+UseG1GC"'
 
   tasks:
     - name: disable puppet
