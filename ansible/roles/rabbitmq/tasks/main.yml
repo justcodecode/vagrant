@@ -11,7 +11,7 @@
   service: name=rabbitmq-server state=restarted enabled=yes
 
 - name: create rabbitmq admin
-  rabbitmq_user: user={{rabbitmq_admin_user}} password={{rabbitmq_admin_password}} tags=administrator state=present
+  rabbitmq_user: user={{rabbitmq_admin_user}} password={{rabbitmq_admin_password}} configure_priv=.* read_priv=.* write_priv=.* tags=administrator state=present
 
 - name: enable management plugin
   rabbitmq_plugin: names=rabbitmq_management state=enabled
