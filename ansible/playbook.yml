@@ -1,5 +1,5 @@
 - hosts: localhost
-  roles: [sys, supervisor, jdk, redis]
+  roles: [sys, supervisor, jdk, redis, rabbitmq]
   vars:
     supervisor_programs:
       demo:
@@ -11,3 +11,4 @@
       service: name=puppet enabled=no state=stopped
     - name: disable chef
       service: name=chef-client enabled=no state=stopped
+    - rabbitmq_user: user=rabbitmq password=rabbitmq read_priv=.* write_priv=.* state=present

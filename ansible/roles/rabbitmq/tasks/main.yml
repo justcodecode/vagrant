@@ -10,6 +10,11 @@
 - name: update rabbitmq service
   service: name=rabbitmq-server state=restarted enabled=yes
 
-- name: create rabbitmq user
-  rabbitmq_user: user={{rabbitmq_user}} password={{rabbitmq_password}} configure_priv=.* read_priv=.* write_priv=.* state=present
-  when: rabbitmq_user != ""
+- name: create rabbitmq admin
+  rabbitmq_user: user={{rabbitmq_admin_user}} password={{rabbitmq_admin_password}} tags=administrator state=present
+
+- name: enable management plugin
+  rabbitmq_plugin: names=rabbitmq_management state=enabled
+
+# create rabbitmq user use follwing in playbook
+# rabbitmq_user: user=rabbitmq password=rabbitmq configure_priv=.* read_priv=.* write_priv=.* state=present
