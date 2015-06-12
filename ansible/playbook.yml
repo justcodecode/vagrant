@@ -1,14 +1,15 @@
 - hosts: localhost
-  roles: [sys, supervisor, jdk, redis, rabbitmq]
+  roles: [mysql]
   vars:
+    redis_service_state: stopped
     supervisor_programs:
       demo:
         command: '/opt/app/demo-service-3.0.0/bin/demo-service'
-        env: 'JAVA_OPTS="-XX:+UseG1GC"'
+        env: 'JAVA_OPTS="-XX:+UseG1GC -Xms100m -Xmx100m"'
 
   tasks:
     - name: disable puppet
       service: name=puppet enabled=no state=stopped
     - name: disable chef
       service: name=chef-client enabled=no state=stopped
-    - rabbitmq_user: user=rabbitmq password=rabbitmq read_priv=.* write_priv=.* state=present
+#    - rabbitmq_user: user=rabbitmq password=rabbitmq read_priv=.* write_priv=.* state=present

@@ -3,4 +3,4 @@
   notify: restart-tomcat-service
 
 - name: restart-tomcat-service
-  service: name=tomcat7 state=restarted
+  service: name=tomcat7 state={{tomcat_service_state}}

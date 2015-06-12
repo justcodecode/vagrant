@@ -10,5 +10,5 @@
 - name: add /etc/sudoers.d/10-jenkins
   copy: src=etc/sudoers.d/10-jenkins dest=/etc/sudoers.d/10-jenkins owner=root group=root mode=0440
 
-- name: update jenkins service
+- name: enable jenkins service
   service: name=jenkins enabled=yes

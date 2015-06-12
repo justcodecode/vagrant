@@ -11,5 +11,5 @@
   template: src=etc/elasticsearch/elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml
   notify: restart-elasticsearch
 
-- name: update elasticsearch service
+- name: enable elasticsearch service
   service: name=elasticsearch enabled=yes

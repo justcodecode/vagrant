@@ -11,5 +11,5 @@
   copy: src=etc/mongod.conf dest=/etc/mongod.conf
   notify: restart-mongodb
 
-- name: update mongodb service
+- name: enable mongodb service
   service: name=mongod enabled=yes
