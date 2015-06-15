@@ -24,7 +24,7 @@
   user: name=ubuntu groups=adm append=yes
 
 - name: create /opt/log/nginx
-  file: path=/opt/log/nginx owner=www-data group=adm mode=0755 state=directory recurse=yes
+  file: path=/opt/log/nginx owner=www-data group=adm mode=0755 state=directory
 
 - name: update /etc/logrotate.d/nginx
   copy: src=etc/logrotate.d/nginx dest=/etc/logrotate.d/nginx
