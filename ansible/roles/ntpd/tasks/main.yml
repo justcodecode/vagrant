@@ -1,5 +1,0 @@
-- name: install ntpd
-  apt: name=ntp
-
-- name: update ntpd service
-  service: name=ntpd enabled=yes

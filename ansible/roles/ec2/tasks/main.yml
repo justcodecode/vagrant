@@ -1,13 +1,6 @@
 - name: create /opt/ec2
   file: path=/opt/ec2 owner=root group=root state=directory
 
-- name: update /opt/ec2/mount-ephemeral.sh
-  copy: src=opt/ec2/mount-ephemeral.sh dest=/opt/ec2/mount-ephemeral.sh owner=root group=root mode=0755
-  notify: mount-ephemeral
-
-- name: update /etc/init/mount-ephemeral.conf
-  copy: src=etc/init/mount-ephemeral.conf dest=/etc/init/mount-ephemeral.conf owner=root group=root mode=0644
-
 - name: install pip
   apt: name=python-pip
 
