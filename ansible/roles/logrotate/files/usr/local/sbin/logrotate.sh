@@ -1,5 +1,4 @@
 #!/bin/sh
-# from original /etc/cron.daily/logroate
 # Clean non existent log file entries from status file
 cd /var/lib/logrotate
 test -e status || touch status
@@ -11,7 +10,4 @@ done >> status.clean
 mv status.clean status
 
 test -x /usr/sbin/logrotate || exit 0
-/usr/sbin/logrotate -f /etc/logrotate.conf
-/bin/gzip -r /opt/log/*
-
-
+/usr/sbin/logrotate /etc/logrotate.conf
