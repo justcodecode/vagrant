@@ -8,10 +8,9 @@
   copy: src=etc/nginx/ dest=/etc/nginx owner=root group=root mode=0644
   notify: restart-nginx
 
-- name: update /etc/nginx/sites-available/default by nginx_default_conf
-  copy: content={{nginx_default_conf}} dest=/etc/nginx/sites-available/default owner=root group=root mode=0644
+- name: update /etc/nginx/sites-available/default
+  template: src=etc/nginx/sites-available/default.j2 dest=/etc/nginx/sites-available/default owner=root group=root mode=0644
   notify: restart-nginx
-  when: nginx_default_conf != ""
 
 - name: update /etc/nginx/sites-enabled/default
   file: src=/etc/nginx/sites-available/default dest=/etc/nginx/sites-enabled/default state=link

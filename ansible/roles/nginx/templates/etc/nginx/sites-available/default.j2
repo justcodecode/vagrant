@@ -1,3 +1,6 @@
+{% if nginx_default_conf != "" %}
+{{nginx_default_conf}}
+{% else %}
 upstream backend {
     server localhost:8080;
 
@@ -41,3 +44,4 @@ server {
         deny          all;
     }
 }
+{% endif %}
